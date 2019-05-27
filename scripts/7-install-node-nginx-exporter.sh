@@ -1,8 +1,7 @@
 #!/bin/bash
 NODE_NGINX_EXPORTER_VERSION="0.3.0"
 wget https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v${NODE_NGINX_EXPORTER_VERSION}/nginx-prometheus-exporter-${NODE_NGINX_EXPORTER_VERSION}-linux-amd64.tar.gz
-tar -xzvf nginx-prometheus-exporter-${NODE_NGINX_EXPORTER_VERSION}.linux-amd64.tar.gz
-cd nginx-prometheus-exporter-${nginx-prometheus-exporter_VERSION}.linux-amd64
+tar -xzvf nginx-prometheus-exporter-${NODE_NGINX_EXPORTER_VERSION}-linux-amd64.tar.gz
 cp nginx-prometheus-exporter /usr/local/bin
 
 # create user
@@ -19,7 +18,7 @@ After=network-online.target
 User=nginx-prometheus-exporter
 Group=nginx-prometheus-exporter
 Type=simple
-ExecStart=/usr/local/bin/nginx-prometheus-exporter
+ExecStart=/usr/local/bin/nginx-prometheus-exporter -nginx.scrape-uri https://grafana.cardea.com.br/stub_status
 
 [Install]
 WantedBy=multi-user.target' > /etc/systemd/system/nginx-prometheus-exporter.service
